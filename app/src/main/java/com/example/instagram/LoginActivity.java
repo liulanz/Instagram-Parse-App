@@ -29,8 +29,10 @@ import com.example.instagram.R;
 
 import com.parse.LogInCallback;
 import com.parse.ParseException;
+import com.parse.ParseObject;
 import com.parse.ParseUser;
 import com.parse.SaveCallback;
+import com.parse.SignUpCallback;
 
 public class LoginActivity extends AppCompatActivity {
     EditText usernameEditText;
@@ -45,9 +47,9 @@ public class LoginActivity extends AppCompatActivity {
         setContentView(R.layout.activity_login);
         usernameEditText = findViewById(R.id.username);
         passwordEditText = findViewById(R.id.password);
-        loginButton = findViewById(R.id.login);
+        loginButton = findViewById(R.id.btnlogin);
         loadingProgressBar = findViewById(R.id.loading);
-        signupButton = findViewById(R.id.signup);
+        signupButton = findViewById(R.id.btnsignup);
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -76,11 +78,13 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void saveUser(String username, String password) {
-        User user = new User();
-        user.setPassword(password);
+        ParseUser user = new ParseUser();
+        // Set core properties
         user.setUsername(username);
-        user.saveInBackground(new SaveCallback() {
-            @Override
+        user.setPassword(password);
+
+        // Invoke signUpInBackground
+        user.signUpInBackground(new SignUpCallback() {
             public void done(ParseException e) {
                 if(e!=null){
                     Log.e("LoginActivity","Issue with saving new user", e);
@@ -89,11 +93,13 @@ public class LoginActivity extends AppCompatActivity {
                 }
                 loadingProgressBar.setVisibility(View.INVISIBLE);
                 Log.i("LoginActivity","Save successfully!");
-               usernameEditText.setText("");
+                Toast.makeText(LoginActivity.this, "You have successfully signed up. PlEASE Login", Toast.LENGTH_SHORT).show();
+                usernameEditText.setText("");
                 passwordEditText.setText("");
-
             }
         });
+
+
     }
 
     private void loginUser(String username, String password) {
@@ -108,7 +114,7 @@ public class LoginActivity extends AppCompatActivity {
                 }
                 else{
                     Toast.makeText(getApplicationContext(), "Success", Toast.LENGTH_LONG).show();
-                    goMainActivity();
+                    goHomeActivity();
                 }
                 return;
 
@@ -119,8 +125,8 @@ public class LoginActivity extends AppCompatActivity {
         });
     }
 
-    private void goMainActivity() {
-        Intent i = new Intent(this, MainActivity.class);
+    private void goHomeActivity() {
+        Intent i = new Intent(this, HomeActivity.class);
         startActivity(i);
     }
 

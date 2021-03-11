@@ -50,6 +50,7 @@ public class MainActivity extends AppCompatActivity {
         activityMainBinding.btnSubmit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                activityMainBinding.pbloading.setVisibility(View.VISIBLE);
                 String description = activityMainBinding.etDescription.getText().toString();
                 if(description.isEmpty()){
                     Toast.makeText(MainActivity.this, "Description cannot be empty", Toast.LENGTH_SHORT).show();
@@ -63,6 +64,38 @@ public class MainActivity extends AppCompatActivity {
                 savePost(description, currentUser, photoFile);
             }
         });
+
+
+
+        activityMainBinding.ivadd.setImageDrawable(getResources().getDrawable(R.drawable.instagram_new_post_filled_24));
+        activityMainBinding.ivhome.setImageDrawable(getResources().getDrawable(R.drawable.instagram_home_outline_24));
+        activityMainBinding.ivuser.setImageDrawable(getResources().getDrawable(R.drawable.instagram_user_outline_24));
+        activityMainBinding.ivuser.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                activityMainBinding.ivuser.setImageDrawable(getResources().getDrawable(R.drawable.instagram_user_filled_24));
+                activityMainBinding.ivhome.setImageDrawable(getResources().getDrawable(R.drawable.instagram_home_outline_24));
+                activityMainBinding.ivadd.setImageDrawable(getResources().getDrawable(R.drawable.instagram_new_post_outline_24));
+                goUserActivity();
+            }
+        });
+        activityMainBinding.ivhome.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                activityMainBinding.ivhome.setImageDrawable(getResources().getDrawable(R.drawable.instagram_home_filled_24));
+                activityMainBinding.ivadd.setImageDrawable(getResources().getDrawable(R.drawable.instagram_new_post_outline_24));
+                activityMainBinding.ivuser.setImageDrawable(getResources().getDrawable(R.drawable.instagram_user_outline_24));
+                goHomeActivity();
+
+            }
+        });
+
+
+
+
+
+
+
     }
 
     private void launchCamera() {
@@ -84,7 +117,15 @@ public class MainActivity extends AppCompatActivity {
             startActivityForResult(intent, CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE);
         }
     }
+    private void goUserActivity() {
+        Intent i = new Intent(this, UserActivity.class);
+        startActivity(i);
+    }
 
+    private void goHomeActivity() {
+        Intent i = new Intent(this, HomeActivity.class);
+        startActivity(i);
+    }
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -135,6 +176,7 @@ public class MainActivity extends AppCompatActivity {
                 Log.i(TAG,"Save successfully!");
                 activityMainBinding.etDescription.setText("");
                 activityMainBinding.ivPostImage.setImageResource(0);
+                activityMainBinding.pbloading.setVisibility(View.INVISIBLE);
             }
         });
     }
