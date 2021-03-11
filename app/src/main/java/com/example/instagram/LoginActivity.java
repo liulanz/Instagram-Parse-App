@@ -30,12 +30,14 @@ import com.example.instagram.R;
 import com.parse.LogInCallback;
 import com.parse.ParseException;
 import com.parse.ParseUser;
+import com.parse.SaveCallback;
 
 public class LoginActivity extends AppCompatActivity {
-     EditText usernameEditText;
+    EditText usernameEditText;
     EditText passwordEditText;
     Button loginButton ;
     ProgressBar loadingProgressBar;
+    Button signupButton ;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -45,13 +47,51 @@ public class LoginActivity extends AppCompatActivity {
         passwordEditText = findViewById(R.id.password);
         loginButton = findViewById(R.id.login);
         loadingProgressBar = findViewById(R.id.loading);
-
+        signupButton = findViewById(R.id.signup);
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 loadingProgressBar.setVisibility(View.VISIBLE);
                 loginUser(usernameEditText.getText().toString(),
                         passwordEditText.getText().toString());
+            }
+        });
+        signupButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                loadingProgressBar.setVisibility(View.VISIBLE);
+                String username = usernameEditText.getText().toString();
+                String password = passwordEditText.getText().toString();
+                if(username.isEmpty()){
+                    Toast.makeText(LoginActivity.this, "username cannot be empty", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                if(password.isEmpty()){
+                    Toast.makeText(LoginActivity.this, "password cannot be empty", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                saveUser(username, password);
+            }
+        });
+    }
+
+    private void saveUser(String username, String password) {
+        User user = new User();
+        user.setPassword(password);
+        user.setUsername(username);
+        user.saveInBackground(new SaveCallback() {
+            @Override
+            public void done(ParseException e) {
+                if(e!=null){
+                    Log.e("LoginActivity","Issue with saving new user", e);
+                    Toast.makeText(LoginActivity.this, "Error while saving", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                loadingProgressBar.setVisibility(View.INVISIBLE);
+                Log.i("LoginActivity","Save successfully!");
+               usernameEditText.setText("");
+                passwordEditText.setText("");
+
             }
         });
     }
