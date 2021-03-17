@@ -44,6 +44,12 @@ public class LoginActivity extends AppCompatActivity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        ParseUser currentUser = ParseUser.getCurrentUser();
+        if (currentUser != null) {
+            goMainActivity();
+            return;
+            // do stuff with the user
+        }
         setContentView(R.layout.activity_login);
         usernameEditText = findViewById(R.id.username);
         passwordEditText = findViewById(R.id.password);
@@ -58,6 +64,7 @@ public class LoginActivity extends AppCompatActivity {
                         passwordEditText.getText().toString());
             }
         });
+
         signupButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -114,7 +121,7 @@ public class LoginActivity extends AppCompatActivity {
                 }
                 else{
                     Toast.makeText(getApplicationContext(), "Success", Toast.LENGTH_LONG).show();
-                    goHomeActivity();
+                    goMainActivity();
                 }
                 return;
 
@@ -125,8 +132,8 @@ public class LoginActivity extends AppCompatActivity {
         });
     }
 
-    private void goHomeActivity() {
-        Intent i = new Intent(this, HomeActivity.class);
+    private void goMainActivity() {
+        Intent i = new Intent(this, MainActivity.class);
         startActivity(i);
     }
 

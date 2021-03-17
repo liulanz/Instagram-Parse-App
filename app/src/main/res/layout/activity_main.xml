@@ -2,16 +2,18 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
+
 <RelativeLayout
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".MainActivity">
-
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/appBar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:theme="@style/ThemeOverlay.AppCompat.ActionBar">
+
+
 
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/toolbar"
@@ -21,33 +23,45 @@
 
 
 
-                <ImageView
-                    android:id="@+id/camera"
-                    android:layout_width="60dp"
-                    android:layout_height="60dp"
-                    android:backgroundTint="@color/black"
-                    android:src="@drawable/camera_shadow_fill"
+            <ImageView
+                android:id="@+id/camera"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:backgroundTint="@color/black"
+                android:src="@drawable/camera_shadow_fill"
 
-                    app:tint="@android:color/black" />
+                app:tint="@android:color/black" />
 
-                <ImageView
-                    android:id="@+id/logo"
-                    android:layout_width="250dp"
-                    android:layout_height="50dp"
-                    android:layout_marginTop="10dp"
+            <ImageView
+                android:id="@+id/logo"
+                android:layout_width="220dp"
+                android:layout_height="50dp"
+                android:layout_marginTop="10dp"
 
-                    android:backgroundTint="@color/black"
-                    android:src="@drawable/nav_logo_whiteout"
-                    app:tint="@android:color/black" />
+                android:backgroundTint="@color/black"
+                android:src="@drawable/nav_logo_whiteout"
+                app:tint="@android:color/black" />
+            <Button
+                android:id="@+id/btnLogout"
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                app:backgroundTint="#FFFFFF"
+                android:background="#C6C6C6"
+                android:text="LOGOUT"
+                android:textStyle="bold"
+                android:textSize="12sp"
+                android:textColor="#F40202"
+               />
 
-                <ImageView
-                    android:id="@+id/nav"
-                    android:layout_width="35dp"
-                    android:layout_height="35dp"
-                    android:layout_marginTop="10dp"
-                    android:backgroundTint="@color/black"
-                    android:src="@drawable/nav_inbox_paper_plane"
-                    app:tint="@android:color/black" />
+
+<!--            <ImageView-->
+<!--                android:id="@+id/nav"-->
+<!--                android:layout_width="40dp"-->
+<!--                android:layout_height="40dp"-->
+<!--                android:layout_marginTop="10dp"-->
+<!--                android:backgroundTint="@color/black"-->
+<!--                android:src="@drawable/ufi_more"-->
+<!--                app:tint="@android:color/black" />-->
 
 
 
@@ -55,95 +69,23 @@
 
 
     </com.google.android.material.appbar.AppBarLayout>
-    <EditText
-        android:id="@+id/etDescription"
+    <FrameLayout
+        android:id="@+id/flContainer"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:layout_below="@id/appBar"
-        android:layout_width="350dp"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="20dp"
-        android:ems="10"
-        android:selectAllOnFocus="true"
-        android:hint="@string/Description" />
+        android:layout_above="@+id/bottomNavigation">
 
-    <Button
-        android:id="@+id/btnPicture"
-        android:layout_width="350dp"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/etDescription"
-        android:layout_centerHorizontal="true"
-        app:backgroundTint="#C6C6C6"
-        android:background="#C6C6C6"
-        android:text="TAKE PICTURE"
-        android:layout_marginTop="20dp"
-        android:textColor="@color/black" />
-
-    <ProgressBar
-        android:id="@+id/pbloading"
-        android:layout_width="80dp"
-        android:layout_height="67dp"
-        android:layout_below="@+id/ivPostImage"
-        android:layout_centerHorizontal="true"
-        android:visibility="gone"
-        />
-
-    <Button
-        android:id="@+id/btnSubmit"
-        android:layout_width="350dp"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/pbloading"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="20dp"
-
-        android:background="#C6C6C6"
-        android:text="SUBMIT"
-        android:textColor="@color/black"
-        app:backgroundTint="#C6C6C6" />
-
-    <ImageView
-        android:layout_below="@+id/btnPicture"
-        android:id="@+id/ivPostImage"
-        android:layout_marginTop="20dp"
-        android:layout_width="wrap_content"
-        android:layout_height="200dp"
-        android:layout_centerHorizontal="true"
-        tools:srcCompat="@tools:sample/avatars" />
-    <LinearLayout
+    </FrameLayout>
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/bottomNavigation"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
         android:layout_alignParentBottom="true"
-        android:layout_marginBottom="10dp"
-        android:layout_marginStart="20dp"
-        android:layout_marginEnd="20dp">
 
-        <ImageView
-            android:id="@+id/ivhome"
-            android:layout_width="4dp"
-            android:layout_height="40dp"
-            android:backgroundTint="@color/black"
-            android:src="@drawable/instagram_home_outline_24"
-            app:tint="@android:color/black"
-            android:layout_weight="1.5"/>
-        <ImageView
-            android:id="@+id/ivadd"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:backgroundTint="@color/black"
-            android:src="@drawable/instagram_new_post_outline_24"
-            app:tint="@android:color/black"
-            android:layout_weight="1"/>
-        <ImageView
-            android:id="@+id/ivuser"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:backgroundTint="@color/black"
-            android:src="@drawable/instagram_user_outline_24"
-            app:tint="@android:color/black"
-            android:layout_weight="1"/>
-
-
-    </LinearLayout>
+        app:itemIconTint="@color/black"
+        app:itemTextColor="@color/black"
+        app:menu="@menu/menu_bottom_navigation" />
 
 </RelativeLayout>
 </layout>

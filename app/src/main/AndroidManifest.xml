@@ -14,8 +14,6 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Instagram"
         android:usesCleartextTraffic="true">
-        <activity android:name=".UserActivity"></activity>
-        <activity android:name=".HomeActivity" />
 
         <provider
             android:name="androidx.core.content.FileProvider"
